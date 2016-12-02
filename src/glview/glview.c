@@ -407,6 +407,28 @@ GLVContext glvCreateSurfaceView(GLVWindow glv_win,int maps,GLVEVENTFUNC_t *event
 	return (glv_context);
 }
 
+void glvDestroySurfaceView(GLVContext glv_context)
+{
+    void *res;
+    GLVCONTEXT_t* ctx = (GLVCONTEXT_t*)glv_context;
+
+    _glv_parent_context = 0;
+
+    if (pthread_cancel(ctx->threadId) != 0)
+        fprintf(stderr, "[%s:%d] Fail to cancel thread\n", __func__, __LINE__);
+    else if (pthread_join(ctx->threadId, &res) != 0)
+        fprintf(stderr, "[%s:%d] Fail to join canceled thread\n", __func__, __LINE__);
+    else if (res == PTHREAD_CANCELED)
+        fprintf(stderr, "[%s:%d] thread was successfully canceled\n", __func__, __LINE__);
+    else
+        fprintf(stderr, "[%s:%d] thread was not properly canceled (%p)\n", __func__, __LINE__, res);
+
+    if (pthread_msq_destroy(&ctx->queue) != PTHREAD_MSQ_OK)
+        fprintf(stderr, "[%s:%d] Fail to destroy queue\n", __func__, __LINE__);
+
+    free(ctx);
+}
+
 int glvOnReShape(GLVContext glv_c,int width, int height)
 {
 	GLVCONTEXT_t *glv_context;
@@ -423,7 +445,7 @@ int glvOnReShape(GLVContext glv_c,int width, int height)
 	return (GLV_OK);
 }
 
-int glvOnReDraw(GLVContext glv_c)
+static int glvOnReDraw_(GLVContext glv_c)
 {
 	GLVCONTEXT_t *glv_context;
 	pthread_msq_msg_t smsg;
@@ -437,6 +459,12 @@ int glvOnReDraw(GLVContext glv_c)
 	//GLV_DEBUG printf("glvOnReDraw \n");
 	pthread_msq_msg_send(&glv_context->queue,&smsg,0);
 	return (GLV_OK);
+}
+
+int glvOnReDraw(GLVContext glv_c)
+{
+    glvOnReDraw_(glv_c);
+    glvOnReDraw_(glv_c);
 }
 
 int glvOnUpdate(GLVContext glv_c)
