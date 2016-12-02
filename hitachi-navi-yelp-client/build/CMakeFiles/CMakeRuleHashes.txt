@@ -1,5 +1,0 @@
-# Hashes of file build rules.
-f4cd6e28a16d0113cc5f3b9587561ed8 moc_InfoPanel.cpp
-057eb504b148eafbd0689330d2bb4553 moc_Keyboard.cpp
-fbc3dedad16f8bdc8eb8ee0bd4b2ef2e moc_MainApp.cpp
-57deb04f86690487e9e074b6a12d7d6f qrc_yelp-client.cpp

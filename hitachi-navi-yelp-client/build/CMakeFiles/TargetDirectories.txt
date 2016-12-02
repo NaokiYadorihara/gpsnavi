@@ -1,7 +1,0 @@
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/CMakeFiles/install.dir
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/CMakeFiles/list_install_components.dir
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/CMakeFiles/rebuild_cache.dir
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/CMakeFiles/yelp-client.dir
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/CMakeFiles/install/local.dir
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/CMakeFiles/geniviwrapper.dir
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/CMakeFiles/edit_cache.dir

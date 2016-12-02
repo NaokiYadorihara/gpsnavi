@@ -1,2 +1,0 @@
-/usr/bin/ar qc libgeniviwrapper.a  CMakeFiles/geniviwrapper.dir/libgeniviwrapper/GeniviWrapper.cpp.o
-/usr/bin/ranlib libgeniviwrapper.a
