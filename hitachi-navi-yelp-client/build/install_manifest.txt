@@ -1,1 +1,0 @@
-/home/yado/work/gitclone/hitachi-navi-yelp-client/build/install/bin/yelp-client
