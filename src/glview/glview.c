@@ -423,7 +423,7 @@ int glvOnReShape(GLVContext glv_c,int width, int height)
 	return (GLV_OK);
 }
 
-int glvOnReDraw(GLVContext glv_c)
+static int glvOnReDraw_(GLVContext glv_c)
 {
 	GLVCONTEXT_t *glv_context;
 	pthread_msq_msg_t smsg;
@@ -437,6 +437,12 @@ int glvOnReDraw(GLVContext glv_c)
 	//GLV_DEBUG printf("glvOnReDraw \n");
 	pthread_msq_msg_send(&glv_context->queue,&smsg,0);
 	return (GLV_OK);
+}
+
+int glvOnReDraw(GLVContext glv_c)
+{
+    glvOnReDraw_(glv_c);
+    glvOnReDraw_(glv_c);
 }
 
 int glvOnUpdate(GLVContext glv_c)
