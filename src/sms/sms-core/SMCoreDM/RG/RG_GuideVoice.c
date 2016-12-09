@@ -162,11 +162,11 @@ E_SC_RESULT RG_CTL_CreateVoiceText(RT_NAME_t *in, INT32 language)
 	
 	if (language == SYS_LANGUAGE_EN)
 	{
-		strcat(tts_voice, "flite \"");
+		strcat(tts_voice, "./flite \"");
 	}
 	else
 	{
-		strcat(tts_voice, "jtalk \"");
+		strcat(tts_voice, "./jtalk \"");
 	}
 	
 	while(1)
@@ -223,6 +223,20 @@ E_SC_RESULT RG_CTL_SetGuideVoice(RT_TBL_MAIN_t *guidetbl_p, RG_CTL_MAIN_t *guide
 	if (e_SC_RESULT_SUCCESS != ret) {
 		SC_LOG_ErrorPrint(SC_TAG_RG, "[CTL] SC_MNG_GetLanguage " HERE);
 		return (e_SC_RESULT_FAIL);
+	}
+
+	// 言語習得失敗時は直下の「jp」有無で処理切り替え
+	if( SYS_LANGUAGE_INIT == language ){
+		FILE *fp=NULL;
+
+		fp = fopen( "./jp", "r" );
+		if( NULL != fp ){
+			language = SYS_LANGUAGE_JP;
+			fclose( fp );
+			fp = NULL;
+		}else{
+			language = SYS_LANGUAGE_EN;
+		}
 	}
 
 	if (language != SYS_LANGUAGE_JP)
